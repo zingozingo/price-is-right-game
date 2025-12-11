@@ -76,136 +76,197 @@ export default function PlayerPage() {
     setSubmitted(true);
   };
 
+  const Snowflake = ({ size = 20, color = "#3b82c4" }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <path d="M12 2v20" stroke={color} strokeWidth="2" strokeLinecap="round"/>
+      <path d="M2 12h20" stroke={color} strokeWidth="2" strokeLinecap="round"/>
+      <path d="M4.93 4.93l14.14 14.14" stroke={color} strokeWidth="2" strokeLinecap="round"/>
+      <path d="M19.07 4.93L4.93 19.07" stroke={color} strokeWidth="2" strokeLinecap="round"/>
+      <path d="M12 6l-2-2M12 6l2-2" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M12 18l-2 2M12 18l2 2" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M6 12l-2-2M6 12l-2 2" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M18 12l2-2M18 12l2 2" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+      <circle cx="12" cy="12" r="2.5" fill={color}/>
+    </svg>
+  );
+
   const styles = {
     container: {
-      padding: '20px',
-      maxWidth: '800px',
-      margin: '0 auto',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      minHeight: '100vh',
+      background: 'linear-gradient(180deg, #f0f7ff 0%, #e8f4fd 50%, #f8fafc 100%)',
+      padding: '24px',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      color: '#1e3a5f'
+    },
+    inner: {
+      maxWidth: '600px',
+      margin: '0 auto'
+    },
+    header: {
+      marginBottom: '32px',
+      position: 'relative'
+    },
+    titleRow: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '10px'
     },
     title: {
-      fontSize: '28px',
-      color: '#c41e3a',
-      marginBottom: '10px'
+      fontSize: '24px',
+      fontWeight: '600',
+      color: '#1e3a5f',
+      marginBottom: '4px',
+      letterSpacing: '-0.5px'
     },
     subtitle: {
-      color: '#228b22',
-      fontSize: '18px',
-      marginBottom: '20px'
+      color: '#5b8cb8',
+      fontSize: '15px',
+      fontWeight: '500'
     },
     waitingContainer: {
       textAlign: 'center',
-      marginTop: '100px'
-    },
-    waitingIcon: {
-      fontSize: '48px',
-      marginBottom: '20px'
+      marginTop: '120px'
     },
     waitingText: {
-      fontSize: '20px',
-      color: '#666'
+      fontSize: '16px',
+      color: '#64748b',
+      lineHeight: '1.6'
     },
-    nameInput: {
-      padding: '12px 16px',
-      fontSize: '18px',
-      border: '2px solid #ddd',
+    card: {
+      backgroundColor: 'white',
+      borderRadius: '12px',
+      padding: '24px',
+      boxShadow: '0 1px 3px rgba(30, 58, 95, 0.08)',
+      border: '1px solid #e2e8f0'
+    },
+    input: {
+      padding: '12px 14px',
+      fontSize: '16px',
+      border: '1px solid #cbd5e1',
       borderRadius: '8px',
       width: '100%',
-      maxWidth: '300px',
-      marginBottom: '10px'
+      maxWidth: '280px',
+      outline: 'none',
+      transition: 'border-color 0.15s ease',
+      backgroundColor: '#fafcff'
     },
-    joinButton: {
-      padding: '12px 32px',
-      fontSize: '18px',
-      backgroundColor: '#228b22',
+    primaryButton: {
+      padding: '12px 24px',
+      fontSize: '15px',
+      fontWeight: '500',
+      backgroundColor: '#3b82c4',
       color: 'white',
       border: 'none',
       borderRadius: '8px',
       cursor: 'pointer',
-      marginLeft: '10px'
+      transition: 'background-color 0.15s ease'
     },
-    joinButtonDisabled: {
-      padding: '12px 32px',
-      fontSize: '18px',
-      backgroundColor: '#ccc',
-      color: '#666',
+    primaryButtonDisabled: {
+      padding: '12px 24px',
+      fontSize: '15px',
+      fontWeight: '500',
+      backgroundColor: '#cbd5e1',
+      color: '#94a3b8',
       border: 'none',
       borderRadius: '8px',
-      cursor: 'not-allowed',
-      marginLeft: '10px'
+      cursor: 'not-allowed'
     },
     errorText: {
-      color: '#c41e3a',
-      marginTop: '10px',
-      fontWeight: 'bold'
+      color: '#dc2626',
+      fontSize: '14px',
+      marginTop: '8px'
     },
-    questionContainer: {
-      marginBottom: '20px',
-      padding: '15px',
-      backgroundColor: '#f9f9f9',
-      borderRadius: '8px',
-      border: '1px solid #eee'
+    questionRow: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      padding: '14px 0',
+      borderBottom: '1px solid #e8f0f7'
     },
     questionLabel: {
-      fontSize: '16px',
-      fontWeight: 'bold',
-      color: '#333',
-      marginBottom: '8px',
-      display: 'block'
+      fontSize: '15px',
+      fontWeight: '500',
+      color: '#1e3a5f'
     },
     questionInput: {
-      padding: '10px 14px',
+      padding: '10px 12px',
       fontSize: '16px',
-      border: '2px solid #ddd',
-      borderRadius: '6px',
-      width: '150px'
+      border: '1px solid #cbd5e1',
+      borderRadius: '8px',
+      width: '120px',
+      textAlign: 'right',
+      outline: 'none',
+      backgroundColor: '#fafcff'
     },
     stickyFooter: {
       position: 'sticky',
       bottom: '0',
-      background: 'linear-gradient(to top, white 80%, transparent)',
-      padding: '20px 10px',
+      background: 'linear-gradient(to top, #f0f7ff 85%, rgba(240, 247, 255, 0))',
+      padding: '24px 0',
       textAlign: 'center'
     },
     submitButton: {
-      padding: '16px 48px',
-      fontSize: '20px',
-      backgroundColor: '#c41e3a',
+      padding: '14px 48px',
+      fontSize: '16px',
+      fontWeight: '500',
+      backgroundColor: '#3b82c4',
       color: 'white',
       border: 'none',
       borderRadius: '8px',
-      cursor: 'pointer',
-      fontWeight: 'bold'
+      cursor: 'pointer'
     },
     counter: {
-      fontSize: '16px',
-      color: '#666',
-      marginBottom: '10px'
+      fontSize: '14px',
+      color: '#64748b',
+      marginBottom: '12px'
     },
-    thankYouContainer: {
+    successContainer: {
       textAlign: 'center',
-      marginTop: '80px'
+      marginTop: '120px'
     },
-    thankYouIcon: {
-      fontSize: '64px',
-      marginBottom: '20px'
+    successTitle: {
+      fontSize: '24px',
+      fontWeight: '600',
+      color: '#1e3a5f',
+      marginBottom: '12px'
     },
-    thankYouTitle: {
-      fontSize: '32px',
-      color: '#228b22',
-      marginBottom: '20px'
+    successText: {
+      fontSize: '16px',
+      color: '#64748b',
+      lineHeight: '1.6'
     },
-    thankYouText: {
-      fontSize: '18px',
-      color: '#666'
+    label: {
+      display: 'block',
+      fontSize: '14px',
+      fontWeight: '500',
+      color: '#475569',
+      marginBottom: '8px'
+    },
+    hint: {
+      fontSize: '14px',
+      color: '#64748b',
+      marginBottom: '24px'
+    },
+    playerInfo: {
+      fontSize: '14px',
+      color: '#64748b',
+      marginBottom: '20px',
+      paddingBottom: '16px',
+      borderBottom: '1px solid #e8f0f7'
+    },
+    snowflakeDecor: {
+      position: 'absolute',
+      opacity: 0.4
     }
   };
 
   if (loading) {
     return (
       <div style={styles.container}>
-        <div style={styles.waitingContainer}>
-          <p>Loading...</p>
+        <div style={styles.inner}>
+          <div style={styles.waitingContainer}>
+            <p style={styles.waitingText}>Loading...</p>
+          </div>
         </div>
       </div>
     );
@@ -215,13 +276,17 @@ export default function PlayerPage() {
   if (!gameActive) {
     return (
       <div style={styles.container}>
-        <div style={styles.waitingContainer}>
-          <div style={styles.waitingIcon}>🎄</div>
-          <h1 style={styles.title}>The Price is Right</h1>
-          <p style={styles.subtitle}>Holiday Edition</p>
-          <p style={styles.waitingText}>
-            Game hasn't started yet. Please wait for the host.
-          </p>
+        <div style={styles.inner}>
+          <div style={styles.waitingContainer}>
+            <div style={{ marginBottom: '24px' }}>
+              <Snowflake size={28} />
+            </div>
+            <h1 style={styles.title}>The Price is Right</h1>
+            <p style={{ ...styles.subtitle, marginTop: '8px', marginBottom: '32px' }}>Holiday Edition</p>
+            <p style={styles.waitingText}>
+              Game hasn't started yet.<br />Please wait for the host.
+            </p>
+          </div>
         </div>
       </div>
     );
@@ -231,12 +296,16 @@ export default function PlayerPage() {
   if (submitted) {
     return (
       <div style={styles.container}>
-        <div style={styles.thankYouContainer}>
-          <div style={styles.thankYouIcon}>🎉</div>
-          <h1 style={styles.thankYouTitle}>Thanks {playerName}!</h1>
-          <p style={styles.thankYouText}>
-            Your answers have been submitted. Good luck!
-          </p>
+        <div style={styles.inner}>
+          <div style={styles.successContainer}>
+            <div style={{ marginBottom: '24px' }}>
+              <Snowflake />
+            </div>
+            <h1 style={styles.successTitle}>Thanks, {playerName}!</h1>
+            <p style={styles.successText}>
+              Your answers have been submitted.<br />Good luck!
+            </p>
+          </div>
         </div>
       </div>
     );
@@ -246,39 +315,47 @@ export default function PlayerPage() {
   if (!nameConfirmed) {
     return (
       <div style={styles.container}>
-        <h1 style={styles.title}>The Price is Right</h1>
-        <p style={styles.subtitle}>Holiday Edition</p>
-        <p style={{ marginBottom: '20px', color: '#666' }}>
-          Guess closest WITHOUT going over!
-        </p>
-
-        <div style={{ marginTop: '40px' }}>
-          <label style={{ display: 'block', marginBottom: '10px', fontWeight: 'bold' }}>
-            Enter your name to join:
-          </label>
-          <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
-            <input
-              type="text"
-              value={playerName}
-              onChange={(e) => {
-                setPlayerName(e.target.value);
-                setNameError('');
-              }}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') checkDuplicateName();
-              }}
-              placeholder="Your name"
-              style={styles.nameInput}
-            />
-            <button
-              onClick={checkDuplicateName}
-              disabled={checkingName}
-              style={checkingName ? styles.joinButtonDisabled : styles.joinButton}
-            >
-              {checkingName ? 'Checking...' : 'Join Game'}
-            </button>
+        <div style={styles.inner}>
+          <div style={styles.header}>
+            <div style={styles.titleRow}>
+              <Snowflake />
+              <h1 style={{ ...styles.title, marginBottom: 0 }}>The Price is Right</h1>
+            </div>
+            <p style={{ ...styles.subtitle, marginTop: '6px' }}>Holiday Edition</p>
           </div>
-          {nameError && <p style={styles.errorText}>{nameError}</p>}
+
+          <div style={styles.card}>
+            <p style={styles.hint}>
+              Guess closest without going over.
+            </p>
+
+            <div>
+              <label style={styles.label}>Your name</label>
+              <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+                <input
+                  type="text"
+                  value={playerName}
+                  onChange={(e) => {
+                    setPlayerName(e.target.value);
+                    setNameError('');
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') checkDuplicateName();
+                  }}
+                  placeholder="Enter your name"
+                  style={styles.input}
+                />
+                <button
+                  onClick={checkDuplicateName}
+                  disabled={checkingName}
+                  style={checkingName ? styles.primaryButtonDisabled : styles.primaryButton}
+                >
+                  {checkingName ? 'Joining...' : 'Join Game'}
+                </button>
+              </div>
+              {nameError && <p style={styles.errorText}>{nameError}</p>}
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -289,34 +366,45 @@ export default function PlayerPage() {
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.title}>The Price is Right</h1>
-      <p style={styles.subtitle}>Holiday Edition</p>
-      <p style={{ marginBottom: '30px', color: '#666' }}>
-        Playing as: <strong>{playerName}</strong> | Guess closest WITHOUT going over!
-      </p>
-
-      <div style={{ marginBottom: '100px' }}>
-        {QUESTIONS.map((q) => (
-          <div key={q.id} style={styles.questionContainer}>
-            <label style={styles.questionLabel}>
-              Q{q.id}
-            </label>
-            <input
-              type="number"
-              value={answers[q.id] || ''}
-              onChange={(e) => setAnswers({ ...answers, [q.id]: e.target.value })}
-              placeholder="Your guess"
-              style={styles.questionInput}
-            />
+      <div style={styles.inner}>
+        <div style={styles.header}>
+          <div style={styles.titleRow}>
+            <Snowflake />
+            <h1 style={{ ...styles.title, marginBottom: 0 }}>The Price is Right</h1>
           </div>
-        ))}
-      </div>
+          <p style={{ ...styles.subtitle, marginTop: '6px' }}>Holiday Edition</p>
+        </div>
 
-      <div style={styles.stickyFooter}>
-        <p style={styles.counter}>Answered: {answeredCount} / 25</p>
-        <button onClick={submitAnswers} style={styles.submitButton}>
-          Submit Answers
-        </button>
+        <div style={styles.card}>
+          <p style={styles.playerInfo}>
+            Playing as <strong>{playerName}</strong>
+          </p>
+
+          <div style={{ marginBottom: '24px' }}>
+            {QUESTIONS.map((q, index) => (
+              <div key={q.id} style={{
+                ...styles.questionRow,
+                borderBottom: index === QUESTIONS.length - 1 ? 'none' : '1px solid #e8f0f7'
+              }}>
+                <label style={styles.questionLabel}>Q{q.id}</label>
+                <input
+                  type="number"
+                  value={answers[q.id] || ''}
+                  onChange={(e) => setAnswers({ ...answers, [q.id]: e.target.value })}
+                  placeholder="—"
+                  style={styles.questionInput}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div style={styles.stickyFooter}>
+          <p style={styles.counter}>{answeredCount} of 25 answered</p>
+          <button onClick={submitAnswers} style={styles.submitButton}>
+            Submit Answers
+          </button>
+        </div>
       </div>
     </div>
   );

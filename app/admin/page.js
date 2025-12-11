@@ -64,193 +64,236 @@ export default function AdminPage() {
     }
   };
 
+  const Snowflake = ({ size = 20, color = "#3b82c4" }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <path d="M12 2v20" stroke={color} strokeWidth="2" strokeLinecap="round"/>
+      <path d="M2 12h20" stroke={color} strokeWidth="2" strokeLinecap="round"/>
+      <path d="M4.93 4.93l14.14 14.14" stroke={color} strokeWidth="2" strokeLinecap="round"/>
+      <path d="M19.07 4.93L4.93 19.07" stroke={color} strokeWidth="2" strokeLinecap="round"/>
+      <path d="M12 6l-2-2M12 6l2-2" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M12 18l-2 2M12 18l2 2" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M6 12l-2-2M6 12l-2 2" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M18 12l2-2M18 12l2 2" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+      <circle cx="12" cy="12" r="2.5" fill={color}/>
+    </svg>
+  );
+
   const styles = {
     container: {
-      padding: '20px',
-      maxWidth: '1000px',
-      margin: '0 auto',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      minHeight: '100vh',
+      background: 'linear-gradient(180deg, #f0f7ff 0%, #e8f4fd 50%, #f8fafc 100%)',
+      padding: '24px',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      color: '#1e3a5f'
+    },
+    inner: {
+      maxWidth: '900px',
+      margin: '0 auto'
+    },
+    titleRow: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '10px',
+      marginBottom: '32px'
     },
     title: {
-      fontSize: '28px',
-      color: '#333',
-      marginBottom: '30px'
+      fontSize: '24px',
+      fontWeight: '600',
+      color: '#1e3a5f',
+      letterSpacing: '-0.5px'
     },
     loginContainer: {
-      maxWidth: '400px',
-      margin: '100px auto',
+      maxWidth: '320px',
+      margin: '120px auto',
       textAlign: 'center'
     },
-    loginTitle: {
-      fontSize: '24px',
-      marginBottom: '20px',
-      color: '#333'
+    loginCard: {
+      backgroundColor: 'white',
+      borderRadius: '12px',
+      padding: '32px',
+      boxShadow: '0 1px 3px rgba(30, 58, 95, 0.08)',
+      border: '1px solid #e2e8f0'
     },
-    passwordInput: {
-      padding: '12px 16px',
+    loginTitle: {
+      fontSize: '20px',
+      fontWeight: '600',
+      marginBottom: '24px',
+      color: '#1e3a5f'
+    },
+    input: {
+      padding: '12px 14px',
       fontSize: '16px',
-      border: '2px solid #ddd',
+      border: '1px solid #cbd5e1',
       borderRadius: '8px',
       width: '100%',
-      marginBottom: '15px'
+      marginBottom: '12px',
+      outline: 'none',
+      backgroundColor: '#fafcff'
     },
-    loginButton: {
-      padding: '12px 32px',
-      fontSize: '16px',
-      backgroundColor: '#333',
+    primaryButton: {
+      padding: '12px 24px',
+      fontSize: '15px',
+      fontWeight: '500',
+      backgroundColor: '#3b82c4',
       color: 'white',
       border: 'none',
       borderRadius: '8px',
       cursor: 'pointer',
       width: '100%'
     },
-    section: {
-      marginBottom: '30px',
-      padding: '20px',
-      backgroundColor: '#f9f9f9',
+    card: {
+      backgroundColor: 'white',
       borderRadius: '12px',
-      border: '1px solid #eee'
+      padding: '20px',
+      boxShadow: '0 1px 3px rgba(30, 58, 95, 0.08)',
+      border: '1px solid #e2e8f0',
+      marginBottom: '20px'
     },
     sectionTitle: {
-      fontSize: '18px',
-      fontWeight: 'bold',
-      marginBottom: '15px',
-      color: '#333'
+      fontSize: '12px',
+      fontWeight: '600',
+      textTransform: 'uppercase',
+      letterSpacing: '0.5px',
+      color: '#64748b',
+      marginBottom: '16px'
     },
-    gameControlButton: {
-      padding: '20px 40px',
-      fontSize: '20px',
-      fontWeight: 'bold',
+    gameButton: {
+      padding: '14px 32px',
+      fontSize: '15px',
+      fontWeight: '600',
       border: 'none',
-      borderRadius: '10px',
-      cursor: 'pointer',
-      marginRight: '20px'
+      borderRadius: '8px',
+      cursor: 'pointer'
     },
     startButton: {
-      backgroundColor: '#228b22',
+      backgroundColor: '#3b82c4',
       color: 'white'
     },
     stopButton: {
-      backgroundColor: '#c41e3a',
+      backgroundColor: '#64748b',
       color: 'white'
     },
-    statusIndicator: {
+    statusBadge: {
       display: 'inline-block',
-      padding: '8px 16px',
-      borderRadius: '20px',
-      fontSize: '14px',
-      fontWeight: 'bold'
+      padding: '6px 12px',
+      borderRadius: '6px',
+      fontSize: '13px',
+      fontWeight: '500',
+      marginLeft: '16px'
     },
     statusActive: {
-      backgroundColor: '#d4edda',
-      color: '#155724'
+      backgroundColor: '#dbeafe',
+      color: '#1e40af'
     },
     statusStopped: {
-      backgroundColor: '#f8d7da',
-      color: '#721c24'
+      backgroundColor: '#f1f5f9',
+      color: '#64748b'
     },
-    submissionCount: {
-      fontSize: '24px',
-      fontWeight: 'bold',
-      color: '#333'
+    statNumber: {
+      fontSize: '36px',
+      fontWeight: '600',
+      color: '#1e3a5f'
     },
-    toggleButton: {
-      padding: '10px 20px',
+    statLabel: {
       fontSize: '14px',
-      backgroundColor: '#6c757d',
-      color: 'white',
-      border: 'none',
+      color: '#64748b',
+      marginTop: '4px'
+    },
+    secondaryButton: {
+      padding: '8px 16px',
+      fontSize: '13px',
+      fontWeight: '500',
+      backgroundColor: '#f8fafc',
+      color: '#1e3a5f',
+      border: '1px solid #cbd5e1',
       borderRadius: '6px',
       cursor: 'pointer',
-      marginBottom: '15px'
+      marginBottom: '16px'
     },
-    toggleButtonActive: {
-      backgroundColor: '#007bff'
+    secondaryButtonActive: {
+      backgroundColor: '#3b82c4',
+      color: 'white',
+      border: '1px solid #3b82c4'
     },
     table: {
       width: '100%',
-      borderCollapse: 'collapse',
-      marginTop: '10px'
+      borderCollapse: 'collapse'
     },
     th: {
       textAlign: 'left',
-      padding: '12px 15px',
-      backgroundColor: '#e9ecef',
-      borderBottom: '2px solid #dee2e6',
-      fontWeight: 'bold'
+      padding: '10px 12px',
+      fontSize: '11px',
+      fontWeight: '600',
+      textTransform: 'uppercase',
+      letterSpacing: '0.5px',
+      color: '#64748b',
+      borderBottom: '1px solid #e2e8f0'
     },
     td: {
-      padding: '12px 15px',
-      borderBottom: '1px solid #dee2e6'
+      padding: '12px',
+      fontSize: '14px',
+      borderBottom: '1px solid #f1f5f9'
     },
-    goldRow: {
-      backgroundColor: '#fff9e6'
+    rankCell: {
+      width: '50px'
     },
-    silverRow: {
-      backgroundColor: '#f5f5f5'
+    rank: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '24px',
+      height: '24px',
+      borderRadius: '6px',
+      fontSize: '12px',
+      fontWeight: '600'
     },
-    bronzeRow: {
-      backgroundColor: '#fdf5ef'
+    rankGold: {
+      backgroundColor: '#fef3c7',
+      color: '#92400e'
     },
-    rankBadge: {
-      display: 'inline-block',
-      width: '28px',
-      height: '28px',
-      lineHeight: '28px',
-      textAlign: 'center',
-      borderRadius: '50%',
-      fontWeight: 'bold',
-      fontSize: '14px'
+    rankSilver: {
+      backgroundColor: '#e2e8f0',
+      color: '#475569'
     },
-    goldBadge: {
-      backgroundColor: '#ffd700',
-      color: '#333'
+    rankBronze: {
+      backgroundColor: '#fed7aa',
+      color: '#9a3412'
     },
-    silverBadge: {
-      backgroundColor: '#c0c0c0',
-      color: '#333'
+    rankNormal: {
+      backgroundColor: '#f1f5f9',
+      color: '#64748b'
     },
-    bronzeBadge: {
-      backgroundColor: '#cd7f32',
-      color: 'white'
+    dangerCard: {
+      backgroundColor: 'white',
+      borderRadius: '12px',
+      padding: '20px',
+      boxShadow: '0 1px 3px rgba(30, 58, 95, 0.08)',
+      border: '1px solid #fecaca',
+      marginBottom: '20px'
     },
-    normalBadge: {
-      backgroundColor: '#e9ecef',
-      color: '#333'
-    },
-    expandButton: {
+    dangerButton: {
       padding: '10px 20px',
-      fontSize: '14px',
-      backgroundColor: '#17a2b8',
-      color: 'white',
-      border: 'none',
+      fontSize: '13px',
+      fontWeight: '500',
+      backgroundColor: 'white',
+      color: '#dc2626',
+      border: '1px solid #fecaca',
       borderRadius: '6px',
       cursor: 'pointer'
     },
-    answerKeyTable: {
-      width: '100%',
-      borderCollapse: 'collapse',
-      marginTop: '15px'
-    },
-    answerKeyQuestion: {
-      fontSize: '14px',
-      color: '#666'
-    },
-    clearButton: {
-      padding: '12px 24px',
-      fontSize: '14px',
-      backgroundColor: '#dc3545',
-      color: 'white',
-      border: 'none',
-      borderRadius: '6px',
-      cursor: 'pointer'
+    muted: {
+      fontSize: '13px',
+      color: '#94a3b8',
+      marginTop: '8px'
     }
   };
 
   if (loading) {
     return (
       <div style={styles.container}>
-        <p>Loading...</p>
+        <div style={styles.inner}>
+          <p style={{ textAlign: 'center', marginTop: '120px', color: '#64748b' }}>Loading...</p>
+        </div>
       </div>
     );
   }
@@ -260,20 +303,25 @@ export default function AdminPage() {
     return (
       <div style={styles.container}>
         <div style={styles.loginContainer}>
-          <h1 style={styles.loginTitle}>Admin Login</h1>
-          <input
-            type="password"
-            placeholder="Enter password"
-            value={adminPassword}
-            onChange={(e) => setAdminPassword(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') handleLogin();
-            }}
-            style={styles.passwordInput}
-          />
-          <button onClick={handleLogin} style={styles.loginButton}>
-            Login
-          </button>
+          <div style={{ marginBottom: '24px' }}>
+            <Snowflake size={28} />
+          </div>
+          <div style={styles.loginCard}>
+            <h1 style={styles.loginTitle}>Admin Login</h1>
+            <input
+              type="password"
+              placeholder="Password"
+              value={adminPassword}
+              onChange={(e) => setAdminPassword(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') handleLogin();
+              }}
+              style={styles.input}
+            />
+            <button onClick={handleLogin} style={styles.primaryButton}>
+              Login
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -282,142 +330,141 @@ export default function AdminPage() {
   // Admin dashboard
   const ranked = getRankedSubmissions();
 
-  const getRowStyle = (index) => {
-    if (index === 0) return styles.goldRow;
-    if (index === 1) return styles.silverRow;
-    if (index === 2) return styles.bronzeRow;
-    return {};
-  };
-
-  const getBadgeStyle = (index) => {
-    if (index === 0) return { ...styles.rankBadge, ...styles.goldBadge };
-    if (index === 1) return { ...styles.rankBadge, ...styles.silverBadge };
-    if (index === 2) return { ...styles.rankBadge, ...styles.bronzeBadge };
-    return { ...styles.rankBadge, ...styles.normalBadge };
+  const getRankStyle = (index) => {
+    if (index === 0) return { ...styles.rank, ...styles.rankGold };
+    if (index === 1) return { ...styles.rank, ...styles.rankSilver };
+    if (index === 2) return { ...styles.rank, ...styles.rankBronze };
+    return { ...styles.rank, ...styles.rankNormal };
   };
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.title}>Admin Dashboard</h1>
-
-      {/* Game Control Section */}
-      <div style={styles.section}>
-        <h2 style={styles.sectionTitle}>Game Control</h2>
-        <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '15px' }}>
-          <button
-            onClick={toggleGameActive}
-            style={{
-              ...styles.gameControlButton,
-              ...(gameActive ? styles.stopButton : styles.startButton)
-            }}
-          >
-            {gameActive ? 'STOP GAME' : 'START GAME'}
-          </button>
-          <span
-            style={{
-              ...styles.statusIndicator,
-              ...(gameActive ? styles.statusActive : styles.statusStopped)
-            }}
-          >
-            {gameActive ? 'Game is ACTIVE' : 'Game is STOPPED'}
-          </span>
+      <div style={styles.inner}>
+        <div style={styles.titleRow}>
+          <Snowflake />
+          <h1 style={styles.title}>Admin Dashboard</h1>
         </div>
-      </div>
 
-      {/* Submissions Count */}
-      <div style={styles.section}>
-        <h2 style={styles.sectionTitle}>Submissions</h2>
-        <p style={styles.submissionCount}>{submissions.length} players submitted</p>
-      </div>
+        {/* Game Control */}
+        <div style={styles.card}>
+          <h2 style={styles.sectionTitle}>Game Control</h2>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <button
+              onClick={toggleGameActive}
+              style={{
+                ...styles.gameButton,
+                ...(gameActive ? styles.stopButton : styles.startButton)
+              }}
+            >
+              {gameActive ? 'Stop Game' : 'Start Game'}
+            </button>
+            <span
+              style={{
+                ...styles.statusBadge,
+                ...(gameActive ? styles.statusActive : styles.statusStopped)
+              }}
+            >
+              {gameActive ? 'Active' : 'Stopped'}
+            </span>
+          </div>
+        </div>
 
-      {/* Leaderboard Section */}
-      <div style={styles.section}>
-        <h2 style={styles.sectionTitle}>Leaderboard</h2>
-        <button
-          onClick={() => setShowTopThreeOnly(!showTopThreeOnly)}
-          style={{
-            ...styles.toggleButton,
-            ...(showTopThreeOnly ? styles.toggleButtonActive : {})
-          }}
-        >
-          {showTopThreeOnly ? 'Show All' : 'Show Top 3'}
-        </button>
+        {/* Submissions Count */}
+        <div style={styles.card}>
+          <h2 style={styles.sectionTitle}>Submissions</h2>
+          <p style={styles.statNumber}>{submissions.length}</p>
+          <p style={styles.statLabel}>players submitted</p>
+        </div>
 
-        {ranked.length === 0 ? (
-          <p style={{ color: '#666' }}>No submissions yet.</p>
-        ) : (
-          <table style={styles.table}>
-            <thead>
-              <tr>
-                <th style={styles.th}>Rank</th>
-                <th style={styles.th}>Name</th>
-                <th style={styles.th}>Score</th>
-                <th style={styles.th}>Time Submitted</th>
-              </tr>
-            </thead>
-            <tbody>
-              {ranked.map((sub, idx) => (
-                <tr key={idx} style={getRowStyle(idx)}>
-                  <td style={styles.td}>
-                    <span style={getBadgeStyle(idx)}>{idx + 1}</span>
-                  </td>
-                  <td style={{ ...styles.td, fontWeight: idx < 3 ? 'bold' : 'normal' }}>
-                    {sub.name}
-                  </td>
-                  <td style={{ ...styles.td, fontWeight: idx < 3 ? 'bold' : 'normal' }}>
-                    {sub.score} / 2500
-                  </td>
-                  <td style={styles.td}>
-                    {new Date(sub.timestamp).toLocaleTimeString()}
-                  </td>
+        {/* Leaderboard */}
+        <div style={styles.card}>
+          <h2 style={styles.sectionTitle}>Leaderboard</h2>
+          <button
+            onClick={() => setShowTopThreeOnly(!showTopThreeOnly)}
+            style={{
+              ...styles.secondaryButton,
+              ...(showTopThreeOnly ? styles.secondaryButtonActive : {})
+            }}
+          >
+            {showTopThreeOnly ? 'Showing Top 3' : 'Show Top 3 Only'}
+          </button>
+
+          {ranked.length === 0 ? (
+            <p style={{ color: '#94a3b8', fontSize: '14px' }}>No submissions yet.</p>
+          ) : (
+            <table style={styles.table}>
+              <thead>
+                <tr>
+                  <th style={{ ...styles.th, ...styles.rankCell }}>Rank</th>
+                  <th style={styles.th}>Name</th>
+                  <th style={styles.th}>Score</th>
+                  <th style={styles.th}>Time</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
+              </thead>
+              <tbody>
+                {ranked.map((sub, idx) => (
+                  <tr key={idx}>
+                    <td style={styles.td}>
+                      <span style={getRankStyle(idx)}>{idx + 1}</span>
+                    </td>
+                    <td style={{ ...styles.td, fontWeight: idx < 3 ? '600' : '400' }}>
+                      {sub.name}
+                    </td>
+                    <td style={{ ...styles.td, fontWeight: idx < 3 ? '600' : '400' }}>
+                      {sub.score} / 2500
+                    </td>
+                    <td style={{ ...styles.td, color: '#64748b' }}>
+                      {new Date(sub.timestamp).toLocaleTimeString()}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
 
-      {/* Answer Key Section */}
-      <div style={styles.section}>
-        <h2 style={styles.sectionTitle}>Answer Key</h2>
-        <button
-          onClick={() => setShowAnswers(!showAnswers)}
-          style={styles.expandButton}
-        >
-          {showAnswers ? 'Hide Answers' : 'Show Answers'}
-        </button>
+        {/* Answer Key */}
+        <div style={styles.card}>
+          <h2 style={styles.sectionTitle}>Answer Key</h2>
+          <button
+            onClick={() => setShowAnswers(!showAnswers)}
+            style={styles.secondaryButton}
+          >
+            {showAnswers ? 'Hide Answers' : 'Show Answers'}
+          </button>
 
-        {showAnswers && (
-          <table style={styles.answerKeyTable}>
-            <thead>
-              <tr>
-                <th style={styles.th}>Q#</th>
-                <th style={styles.th}>Question</th>
-                <th style={styles.th}>Answer</th>
-              </tr>
-            </thead>
-            <tbody>
-              {QUESTIONS.map((q) => (
-                <tr key={q.id}>
-                  <td style={styles.td}>{q.id}</td>
-                  <td style={{ ...styles.td, ...styles.answerKeyQuestion }}>{q.question}</td>
-                  <td style={{ ...styles.td, fontWeight: 'bold' }}>{q.answer.toLocaleString()}</td>
+          {showAnswers && (
+            <table style={styles.table}>
+              <thead>
+                <tr>
+                  <th style={{ ...styles.th, width: '60px' }}>#</th>
+                  <th style={styles.th}>Question</th>
+                  <th style={{ ...styles.th, width: '100px' }}>Answer</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
+              </thead>
+              <tbody>
+                {QUESTIONS.map((q) => (
+                  <tr key={q.id}>
+                    <td style={styles.td}>Q{q.id}</td>
+                    <td style={{ ...styles.td, color: '#64748b' }}>{q.question}</td>
+                    <td style={{ ...styles.td, fontWeight: '600' }}>{q.answer.toLocaleString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
 
-      {/* Clear Submissions Section */}
-      <div style={styles.section}>
-        <h2 style={styles.sectionTitle}>Danger Zone</h2>
-        <button onClick={clearSubmissions} style={styles.clearButton}>
-          Clear All Submissions
-        </button>
-        <p style={{ marginTop: '10px', color: '#666', fontSize: '14px' }}>
-          This will permanently delete all player submissions.
-        </p>
+        {/* Danger Zone */}
+        <div style={styles.dangerCard}>
+          <h2 style={{ ...styles.sectionTitle, color: '#dc2626' }}>Danger Zone</h2>
+          <button onClick={clearSubmissions} style={styles.dangerButton}>
+            Clear All Submissions
+          </button>
+          <p style={styles.muted}>
+            This will permanently delete all player submissions.
+          </p>
+        </div>
       </div>
     </div>
   );
