@@ -3,57 +3,67 @@
 import { useState, useEffect } from 'react';
 import { db } from '../lib/firebase';
 import { ref, onValue, set, get } from 'firebase/database';
-import { QUESTIONS, calculateTotalScore, calculateScore } from '../lib/questions';
+import { QUESTIONS, calculateTotalScore } from '../lib/questions';
 
-export default function Home() {
-  const [view, setView] = useState('player');
+export default function PlayerPage() {
   const [gameActive, setGameActive] = useState(false);
   const [playerName, setPlayerName] = useState('');
+  const [nameConfirmed, setNameConfirmed] = useState(false);
   const [answers, setAnswers] = useState({});
   const [submitted, setSubmitted] = useState(false);
-  const [submissions, setSubmissions] = useState([]);
-  const [adminPassword, setAdminPassword] = useState('');
-  const [isAdminAuthed, setIsAdminAuthed] = useState(false);
-  const [showAnswers, setShowAnswers] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [nameError, setNameError] = useState('');
+  const [checkingName, setCheckingName] = useState(false);
 
-  // Subscribe to real-time updates
   useEffect(() => {
     const gameActiveRef = ref(db, 'gameActive');
-    const submissionsRef = ref(db, 'submissions');
 
     const unsubActive = onValue(gameActiveRef, (snapshot) => {
       setGameActive(snapshot.val() === true);
       setLoading(false);
     });
 
-    const unsubSubs = onValue(submissionsRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        const subsArray = Object.values(data);
-        setSubmissions(subsArray);
-      } else {
-        setSubmissions([]);
-      }
-    });
-
     return () => {
       unsubActive();
-      unsubSubs();
     };
   }, []);
 
-  const toggleGameActive = async () => {
-    const gameActiveRef = ref(db, 'gameActive');
-    await set(gameActiveRef, !gameActive);
+  const sanitizeName = (name) => {
+    return name.trim().replace(/[.#$\/\[\]]/g, '_');
   };
 
-  const submitAnswers = async () => {
-    if (!playerName.trim()) {
-      alert('Please enter your name');
+  const checkDuplicateName = async () => {
+    const trimmedName = playerName.trim();
+    if (!trimmedName) {
+      setNameError('Please enter your name');
       return;
     }
 
+    setCheckingName(true);
+    setNameError('');
+
+    try {
+      const submissionsRef = ref(db, 'submissions');
+      const snapshot = await get(submissionsRef);
+      const data = snapshot.val();
+
+      if (data) {
+        const existingNames = Object.values(data).map(sub => sub.name.toLowerCase());
+        if (existingNames.includes(trimmedName.toLowerCase())) {
+          setNameError('That name is taken, please choose another.');
+          setCheckingName(false);
+          return;
+        }
+      }
+
+      setNameConfirmed(true);
+    } catch (error) {
+      setNameError('Error checking name. Please try again.');
+    }
+    setCheckingName(false);
+  };
+
+  const submitAnswers = async () => {
     const submission = {
       name: playerName.trim(),
       answers: { ...answers },
@@ -61,197 +71,253 @@ export default function Home() {
       score: calculateTotalScore(answers)
     };
 
-    const submissionRef = ref(db, 'submissions/' + playerName.trim().replace(/[.#$\/\[\]]/g, '_'));
+    const submissionRef = ref(db, 'submissions/' + sanitizeName(playerName));
     await set(submissionRef, submission);
     setSubmitted(true);
   };
 
-  const clearSubmissions = async () => {
-    if (confirm('Clear all submissions?')) {
-      const submissionsRef = ref(db, 'submissions');
-      await set(submissionsRef, null);
+  const styles = {
+    container: {
+      padding: '20px',
+      maxWidth: '800px',
+      margin: '0 auto',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+    },
+    title: {
+      fontSize: '28px',
+      color: '#c41e3a',
+      marginBottom: '10px'
+    },
+    subtitle: {
+      color: '#228b22',
+      fontSize: '18px',
+      marginBottom: '20px'
+    },
+    waitingContainer: {
+      textAlign: 'center',
+      marginTop: '100px'
+    },
+    waitingIcon: {
+      fontSize: '48px',
+      marginBottom: '20px'
+    },
+    waitingText: {
+      fontSize: '20px',
+      color: '#666'
+    },
+    nameInput: {
+      padding: '12px 16px',
+      fontSize: '18px',
+      border: '2px solid #ddd',
+      borderRadius: '8px',
+      width: '100%',
+      maxWidth: '300px',
+      marginBottom: '10px'
+    },
+    joinButton: {
+      padding: '12px 32px',
+      fontSize: '18px',
+      backgroundColor: '#228b22',
+      color: 'white',
+      border: 'none',
+      borderRadius: '8px',
+      cursor: 'pointer',
+      marginLeft: '10px'
+    },
+    joinButtonDisabled: {
+      padding: '12px 32px',
+      fontSize: '18px',
+      backgroundColor: '#ccc',
+      color: '#666',
+      border: 'none',
+      borderRadius: '8px',
+      cursor: 'not-allowed',
+      marginLeft: '10px'
+    },
+    errorText: {
+      color: '#c41e3a',
+      marginTop: '10px',
+      fontWeight: 'bold'
+    },
+    questionContainer: {
+      marginBottom: '20px',
+      padding: '15px',
+      backgroundColor: '#f9f9f9',
+      borderRadius: '8px',
+      border: '1px solid #eee'
+    },
+    questionLabel: {
+      fontSize: '16px',
+      fontWeight: 'bold',
+      color: '#333',
+      marginBottom: '8px',
+      display: 'block'
+    },
+    questionInput: {
+      padding: '10px 14px',
+      fontSize: '16px',
+      border: '2px solid #ddd',
+      borderRadius: '6px',
+      width: '150px'
+    },
+    stickyFooter: {
+      position: 'sticky',
+      bottom: '0',
+      background: 'linear-gradient(to top, white 80%, transparent)',
+      padding: '20px 10px',
+      textAlign: 'center'
+    },
+    submitButton: {
+      padding: '16px 48px',
+      fontSize: '20px',
+      backgroundColor: '#c41e3a',
+      color: 'white',
+      border: 'none',
+      borderRadius: '8px',
+      cursor: 'pointer',
+      fontWeight: 'bold'
+    },
+    counter: {
+      fontSize: '16px',
+      color: '#666',
+      marginBottom: '10px'
+    },
+    thankYouContainer: {
+      textAlign: 'center',
+      marginTop: '80px'
+    },
+    thankYouIcon: {
+      fontSize: '64px',
+      marginBottom: '20px'
+    },
+    thankYouTitle: {
+      fontSize: '32px',
+      color: '#228b22',
+      marginBottom: '20px'
+    },
+    thankYouText: {
+      fontSize: '18px',
+      color: '#666'
     }
-  };
-
-  const getRankedSubmissions = () => {
-    return [...submissions].sort((a, b) => b.score - a.score);
   };
 
   if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  // ADMIN VIEW
-  if (view === 'admin') {
-    if (!isAdminAuthed) {
-      return (
-        <div style={{ padding: 20 }}>
-          <h2>Admin Login</h2>
-          <input
-            type="password"
-            placeholder="Password"
-            value={adminPassword}
-            onChange={(e) => setAdminPassword(e.target.value)}
-          />
-          <button onClick={() => {
-            if (adminPassword === 'holiday2024') {
-              setIsAdminAuthed(true);
-            } else {
-              alert('Wrong password');
-            }
-          }}>
-            Login
-          </button>
-          <br /><br />
-          <button onClick={() => setView('player')}>Back to Player View</button>
-          <p style={{ color: '#999' }}>Password: holiday2024</p>
-        </div>
-      );
-    }
-
-    const ranked = getRankedSubmissions();
-
     return (
-      <div style={{ padding: 20 }}>
-        <h1>Admin Dashboard</h1>
-        
-        <div style={{ marginBottom: 20 }}>
-          <button onClick={toggleGameActive} style={{ marginRight: 10 }}>
-            {gameActive ? 'STOP GAME' : 'START GAME'}
-          </button>
-          <span>{gameActive ? 'Game is ACTIVE' : 'Game is STOPPED'}</span>
+      <div style={styles.container}>
+        <div style={styles.waitingContainer}>
+          <p>Loading...</p>
         </div>
-
-        <div style={{ marginBottom: 20 }}>
-          <button onClick={() => setShowAnswers(!showAnswers)} style={{ marginRight: 10 }}>
-            {showAnswers ? 'Hide Answers' : 'Show Answers'}
-          </button>
-          <button onClick={clearSubmissions} style={{ marginRight: 10 }}>
-            Clear All Submissions
-          </button>
-          <button onClick={() => setView('player')}>
-            Player View
-          </button>
-        </div>
-
-        <div style={{ marginBottom: 20 }}>
-          <strong>Total Submissions: {submissions.length}</strong>
-        </div>
-
-        <h2>Leaderboard</h2>
-        <table border="1" cellPadding="10">
-          <thead>
-            <tr>
-              <th>Rank</th>
-              <th>Name</th>
-              <th>Score</th>
-              <th>Time</th>
-            </tr>
-          </thead>
-          <tbody>
-            {ranked.map((sub, idx) => (
-              <tr key={idx} style={idx < 3 ? { fontWeight: 'bold' } : {}}>
-                <td>{idx + 1}</td>
-                <td>{sub.name}</td>
-                <td>{sub.score} / 2500</td>
-                <td>{new Date(sub.timestamp).toLocaleTimeString()}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        {showAnswers && (
-          <div style={{ marginTop: 20 }}>
-            <h2>Answer Key</h2>
-            <table border="1" cellPadding="5">
-              <thead>
-                <tr>
-                  <th>Q#</th>
-                  <th>Answer</th>
-                </tr>
-              </thead>
-              <tbody>
-                {QUESTIONS.map((q) => (
-                  <tr key={q.id}>
-                    <td>{q.id}</td>
-                    <td>{q.answer.toLocaleString()}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
       </div>
     );
   }
 
-  // PLAYER VIEW - Game not active
+  // Game not active - show waiting message only
   if (!gameActive) {
     return (
-      <div style={{ padding: 20 }}>
-        <h1>The Price is Right - Holiday Edition</h1>
-        <p>Game is not active yet. Please wait for the host to start.</p>
-        <br />
-        <button onClick={() => setView('admin')}>Admin</button>
+      <div style={styles.container}>
+        <div style={styles.waitingContainer}>
+          <div style={styles.waitingIcon}>🎄</div>
+          <h1 style={styles.title}>The Price is Right</h1>
+          <p style={styles.subtitle}>Holiday Edition</p>
+          <p style={styles.waitingText}>
+            Game hasn't started yet. Please wait for the host.
+          </p>
+        </div>
       </div>
     );
   }
 
-  // PLAYER VIEW - Already submitted
+  // Already submitted - show thank you (no score)
   if (submitted) {
     return (
-      <div style={{ padding: 20 }}>
-        <h1>Submitted!</h1>
-        <p>Thanks for playing, {playerName}!</p>
-        <p>Your score: {calculateTotalScore(answers)} / 2500</p>
-        <p>Winners will be announced at the end.</p>
+      <div style={styles.container}>
+        <div style={styles.thankYouContainer}>
+          <div style={styles.thankYouIcon}>🎉</div>
+          <h1 style={styles.thankYouTitle}>Thanks {playerName}!</h1>
+          <p style={styles.thankYouText}>
+            Your answers have been submitted. Good luck!
+          </p>
+        </div>
       </div>
     );
   }
 
-  // PLAYER VIEW - Enter answers
+  // Step 1: Name entry
+  if (!nameConfirmed) {
+    return (
+      <div style={styles.container}>
+        <h1 style={styles.title}>The Price is Right</h1>
+        <p style={styles.subtitle}>Holiday Edition</p>
+        <p style={{ marginBottom: '20px', color: '#666' }}>
+          Guess closest WITHOUT going over!
+        </p>
+
+        <div style={{ marginTop: '40px' }}>
+          <label style={{ display: 'block', marginBottom: '10px', fontWeight: 'bold' }}>
+            Enter your name to join:
+          </label>
+          <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
+            <input
+              type="text"
+              value={playerName}
+              onChange={(e) => {
+                setPlayerName(e.target.value);
+                setNameError('');
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') checkDuplicateName();
+              }}
+              placeholder="Your name"
+              style={styles.nameInput}
+            />
+            <button
+              onClick={checkDuplicateName}
+              disabled={checkingName}
+              style={checkingName ? styles.joinButtonDisabled : styles.joinButton}
+            >
+              {checkingName ? 'Checking...' : 'Join Game'}
+            </button>
+          </div>
+          {nameError && <p style={styles.errorText}>{nameError}</p>}
+        </div>
+      </div>
+    );
+  }
+
+  // Step 2: Answer questions
   const answeredCount = Object.keys(answers).filter(k => answers[k] !== '' && answers[k] !== undefined).length;
 
   return (
-    <div style={{ padding: 20 }}>
-      <h1>The Price is Right - Holiday Edition</h1>
-      <p>Guess closest WITHOUT going over!</p>
+    <div style={styles.container}>
+      <h1 style={styles.title}>The Price is Right</h1>
+      <p style={styles.subtitle}>Holiday Edition</p>
+      <p style={{ marginBottom: '30px', color: '#666' }}>
+        Playing as: <strong>{playerName}</strong> | Guess closest WITHOUT going over!
+      </p>
 
-      <div style={{ marginBottom: 20 }}>
-        <label>Your Name: </label>
-        <input
-          type="text"
-          value={playerName}
-          onChange={(e) => setPlayerName(e.target.value)}
-          placeholder="Enter your name"
-        />
-      </div>
-
-      <div style={{ marginBottom: 20 }}>
+      <div style={{ marginBottom: '100px' }}>
         {QUESTIONS.map((q) => (
-          <div key={q.id} style={{ marginBottom: 15 }}>
-            <label>
-              <strong>Q{q.id}.</strong> {q.question}
+          <div key={q.id} style={styles.questionContainer}>
+            <label style={styles.questionLabel}>
+              Q{q.id}
             </label>
-            <br />
             <input
               type="number"
               value={answers[q.id] || ''}
               onChange={(e) => setAnswers({ ...answers, [q.id]: e.target.value })}
               placeholder="Your guess"
-              style={{ width: 150 }}
+              style={styles.questionInput}
             />
           </div>
         ))}
       </div>
 
-      <div style={{ position: 'sticky', bottom: 0, background: 'white', padding: 10, borderTop: '1px solid #ccc' }}>
-        <p>Answered: {answeredCount} / 25</p>
-        <button onClick={submitAnswers}>Submit Answers</button>
+      <div style={styles.stickyFooter}>
+        <p style={styles.counter}>Answered: {answeredCount} / 25</p>
+        <button onClick={submitAnswers} style={styles.submitButton}>
+          Submit Answers
+        </button>
       </div>
-
-      <br />
-      <button onClick={() => setView('admin')}>Admin</button>
     </div>
   );
 }
