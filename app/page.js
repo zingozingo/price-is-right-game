@@ -210,27 +210,27 @@ export default function PlayerPage() {
   };
 
 
-  const Snowflake = ({ size = 20, color = "#3b82c4" }) => (
+  const Flower = ({ size = 20, color = "#ec4899" }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <path d="M12 2v20" stroke={color} strokeWidth="2" strokeLinecap="round"/>
-      <path d="M2 12h20" stroke={color} strokeWidth="2" strokeLinecap="round"/>
-      <path d="M4.93 4.93l14.14 14.14" stroke={color} strokeWidth="2" strokeLinecap="round"/>
-      <path d="M19.07 4.93L4.93 19.07" stroke={color} strokeWidth="2" strokeLinecap="round"/>
-      <path d="M12 6l-2-2M12 6l2-2" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
-      <path d="M12 18l-2 2M12 18l2 2" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
-      <path d="M6 12l-2-2M6 12l-2 2" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
-      <path d="M18 12l2-2M18 12l2 2" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
-      <circle cx="12" cy="12" r="2.5" fill={color}/>
+      <ellipse cx="12" cy="6" rx="3" ry="4" fill={color} opacity="0.9"/>
+      <ellipse cx="12" cy="18" rx="3" ry="4" fill={color} opacity="0.9"/>
+      <ellipse cx="6" cy="12" rx="4" ry="3" fill={color} opacity="0.9"/>
+      <ellipse cx="18" cy="12" rx="4" ry="3" fill={color} opacity="0.9"/>
+      <ellipse cx="7.5" cy="7.5" rx="3" ry="3.5" fill={color} opacity="0.85" transform="rotate(-45 7.5 7.5)"/>
+      <ellipse cx="16.5" cy="7.5" rx="3" ry="3.5" fill={color} opacity="0.85" transform="rotate(45 16.5 7.5)"/>
+      <ellipse cx="7.5" cy="16.5" rx="3" ry="3.5" fill={color} opacity="0.85" transform="rotate(45 7.5 16.5)"/>
+      <ellipse cx="16.5" cy="16.5" rx="3" ry="3.5" fill={color} opacity="0.85" transform="rotate(-45 16.5 16.5)"/>
+      <circle cx="12" cy="12" r="4" fill="#fbbf24"/>
     </svg>
   );
 
   const styles = {
     container: {
       minHeight: '100vh',
-      background: 'linear-gradient(180deg, #f0f7ff 0%, #e8f4fd 50%, #f8fafc 100%)',
+      background: 'linear-gradient(180deg, #f0fdf4 0%, #fdf2f8 50%, #fffbeb 100%)',
       padding: '24px',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-      color: '#1e3a5f'
+      color: '#14532d'
     },
     inner: {
       maxWidth: '500px',
@@ -243,12 +243,12 @@ export default function PlayerPage() {
     title: {
       fontSize: '24px',
       fontWeight: '600',
-      color: '#1e3a5f',
+      color: '#14532d',
       marginBottom: '4px',
       letterSpacing: '-0.5px'
     },
     subtitle: {
-      color: '#5b8cb8',
+      color: '#ec4899',
       fontSize: '15px',
       fontWeight: '500'
     },
@@ -272,22 +272,22 @@ export default function PlayerPage() {
     input: {
       padding: '14px 16px',
       fontSize: '18px',
-      border: '1px solid #cbd5e1',
+      border: '1px solid #bbf7d0',
       borderRadius: '8px',
       width: '100%',
       maxWidth: '280px',
       outline: 'none',
-      backgroundColor: '#fafcff',
+      backgroundColor: '#fafff7',
       textAlign: 'center'
     },
     largeInput: {
       padding: '20px 24px',
       fontSize: '32px',
-      border: '2px solid #cbd5e1',
+      border: '2px solid #bbf7d0',
       borderRadius: '12px',
       width: '200px',
       outline: 'none',
-      backgroundColor: '#fafcff',
+      backgroundColor: '#fafff7',
       textAlign: 'center',
       fontWeight: '600'
     },
@@ -295,7 +295,7 @@ export default function PlayerPage() {
       padding: '14px 32px',
       fontSize: '16px',
       fontWeight: '500',
-      backgroundColor: '#3b82c4',
+      backgroundColor: '#22c55e',
       color: 'white',
       border: 'none',
       borderRadius: '8px',
@@ -316,7 +316,7 @@ export default function PlayerPage() {
       padding: '18px 48px',
       fontSize: '18px',
       fontWeight: '600',
-      backgroundColor: '#3b82c4',
+      backgroundColor: '#22c55e',
       color: 'white',
       border: 'none',
       borderRadius: '10px',
@@ -344,7 +344,7 @@ export default function PlayerPage() {
     questionNumber: {
       fontSize: '64px',
       fontWeight: '700',
-      color: '#3b82c4',
+      color: '#22c55e',
       marginBottom: '24px'
     },
     statusText: {
@@ -388,7 +388,7 @@ export default function PlayerPage() {
       backgroundColor: '#e2e8f0'
     },
     dotAnswered: {
-      backgroundColor: '#3b82c4'
+      backgroundColor: '#22c55e'
     },
     dotCurrent: {
       backgroundColor: '#fbbf24',
@@ -415,10 +415,10 @@ export default function PlayerPage() {
         <div style={styles.inner}>
           <div style={styles.centeredContainer}>
             <div style={{ marginBottom: '24px' }}>
-              <Snowflake size={32} />
+              <Flower size={32} />
             </div>
             <h1 style={styles.title}>The Price is Right</h1>
-            <p style={{ ...styles.subtitle, marginTop: '8px', marginBottom: '32px' }}>Holiday Edition</p>
+            <p style={{ ...styles.subtitle, marginTop: '8px', marginBottom: '32px' }}>Spring Edition</p>
             <p style={styles.waitingText}>
               Game hasn't started yet.<br />Please wait for the host.
             </p>
@@ -434,9 +434,9 @@ export default function PlayerPage() {
       <div style={styles.container}>
         <div style={styles.inner}>
           <div style={styles.header}>
-            <Snowflake size={28} />
+            <Flower size={28} />
             <h1 style={{ ...styles.title, marginTop: '12px' }}>The Price is Right</h1>
-            <p style={styles.subtitle}>Holiday Edition</p>
+            <p style={styles.subtitle}>Spring Edition</p>
           </div>
 
           <div style={styles.card}>
@@ -483,7 +483,7 @@ export default function PlayerPage() {
         <div style={styles.inner}>
           <div style={styles.centeredContainer}>
             <div style={{ marginBottom: '24px' }}>
-              <Snowflake size={32} />
+              <Flower size={32} />
             </div>
             <h1 style={styles.title}>Game Over!</h1>
             <p style={{ ...styles.statusText, marginTop: '16px' }}>
@@ -521,9 +521,9 @@ export default function PlayerPage() {
       <div style={styles.container}>
         <div style={styles.inner}>
           <div style={styles.header}>
-            <Snowflake size={28} />
+            <Flower size={28} />
             <h1 style={{ ...styles.title, marginTop: '12px' }}>The Price is Right</h1>
-            <p style={styles.subtitle}>Holiday Edition</p>
+            <p style={styles.subtitle}>Spring Edition</p>
             <p style={{ fontSize: '13px', color: '#64748b', marginTop: '8px' }}>
               Playing as <strong>{playerName}</strong>
             </p>
@@ -576,9 +576,9 @@ export default function PlayerPage() {
     <div style={styles.container}>
       <div style={styles.inner}>
         <div style={styles.header}>
-          <Snowflake size={28} />
+          <Flower size={28} />
           <h1 style={{ ...styles.title, marginTop: '12px' }}>The Price is Right</h1>
-          <p style={styles.subtitle}>Holiday Edition</p>
+          <p style={styles.subtitle}>Spring Edition</p>
           <p style={{ fontSize: '13px', color: '#64748b', marginTop: '8px' }}>
             Playing as <strong>{playerName}</strong>
           </p>

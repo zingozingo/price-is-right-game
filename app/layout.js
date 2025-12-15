@@ -1,6 +1,6 @@
 export const metadata = {
-  title: 'Price is Right - Holiday Edition',
-  description: 'Holiday party game',
+  title: 'Price is Right - Spring Edition',
+  description: 'Spring party game',
 };
 
 export default function RootLayout({ children }) {

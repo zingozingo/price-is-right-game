@@ -104,7 +104,7 @@ export default function AdminPage() {
   };
 
   const handleLogin = () => {
-    if (adminPassword === 'holiday2024') {
+    if (adminPassword === 'spring2025') {
       setIsAdminAuthed(true);
     } else {
       alert('Wrong password');
@@ -117,27 +117,27 @@ export default function AdminPage() {
     setAdminPassword('');
   };
 
-  const Snowflake = ({ size = 20, color = "#3b82c4" }) => (
+  const Flower = ({ size = 20, color = "#ec4899" }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <path d="M12 2v20" stroke={color} strokeWidth="2" strokeLinecap="round"/>
-      <path d="M2 12h20" stroke={color} strokeWidth="2" strokeLinecap="round"/>
-      <path d="M4.93 4.93l14.14 14.14" stroke={color} strokeWidth="2" strokeLinecap="round"/>
-      <path d="M19.07 4.93L4.93 19.07" stroke={color} strokeWidth="2" strokeLinecap="round"/>
-      <path d="M12 6l-2-2M12 6l2-2" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
-      <path d="M12 18l-2 2M12 18l2 2" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
-      <path d="M6 12l-2-2M6 12l-2 2" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
-      <path d="M18 12l2-2M18 12l2 2" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
-      <circle cx="12" cy="12" r="2.5" fill={color}/>
+      <ellipse cx="12" cy="6" rx="3" ry="4" fill={color} opacity="0.9"/>
+      <ellipse cx="12" cy="18" rx="3" ry="4" fill={color} opacity="0.9"/>
+      <ellipse cx="6" cy="12" rx="4" ry="3" fill={color} opacity="0.9"/>
+      <ellipse cx="18" cy="12" rx="4" ry="3" fill={color} opacity="0.9"/>
+      <ellipse cx="7.5" cy="7.5" rx="3" ry="3.5" fill={color} opacity="0.85" transform="rotate(-45 7.5 7.5)"/>
+      <ellipse cx="16.5" cy="7.5" rx="3" ry="3.5" fill={color} opacity="0.85" transform="rotate(45 16.5 7.5)"/>
+      <ellipse cx="7.5" cy="16.5" rx="3" ry="3.5" fill={color} opacity="0.85" transform="rotate(45 7.5 16.5)"/>
+      <ellipse cx="16.5" cy="16.5" rx="3" ry="3.5" fill={color} opacity="0.85" transform="rotate(-45 16.5 16.5)"/>
+      <circle cx="12" cy="12" r="4" fill="#fbbf24"/>
     </svg>
   );
 
   const styles = {
     container: {
       minHeight: '100vh',
-      background: 'linear-gradient(180deg, #f0f7ff 0%, #e8f4fd 50%, #f8fafc 100%)',
+      background: 'linear-gradient(180deg, #f0fdf4 0%, #fdf2f8 50%, #fffbeb 100%)',
       padding: '24px',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-      color: '#1e3a5f'
+      color: '#14532d'
     },
     inner: {
       maxWidth: '900px',
@@ -152,7 +152,7 @@ export default function AdminPage() {
     title: {
       fontSize: '24px',
       fontWeight: '600',
-      color: '#1e3a5f',
+      color: '#14532d',
       letterSpacing: '-0.5px'
     },
     loginContainer: {
@@ -171,23 +171,23 @@ export default function AdminPage() {
       fontSize: '20px',
       fontWeight: '600',
       marginBottom: '24px',
-      color: '#1e3a5f'
+      color: '#14532d'
     },
     input: {
       padding: '12px 14px',
       fontSize: '16px',
-      border: '1px solid #cbd5e1',
+      border: '1px solid #bbf7d0',
       borderRadius: '8px',
       width: '100%',
       marginBottom: '12px',
       outline: 'none',
-      backgroundColor: '#fafcff'
+      backgroundColor: '#fafff7'
     },
     primaryButton: {
       padding: '12px 24px',
       fontSize: '15px',
       fontWeight: '500',
-      backgroundColor: '#3b82c4',
+      backgroundColor: '#22c55e',
       color: 'white',
       border: 'none',
       borderRadius: '8px',
@@ -237,7 +237,7 @@ export default function AdminPage() {
       marginBottom: '10px'
     },
     nextButton: {
-      backgroundColor: '#3b82c4',
+      backgroundColor: '#22c55e',
       color: 'white'
     },
     finishButton: {
@@ -269,12 +269,12 @@ export default function AdminPage() {
     currentQuestionNum: {
       fontSize: '48px',
       fontWeight: '700',
-      color: '#3b82c4',
+      color: '#22c55e',
       marginBottom: '8px'
     },
     questionText: {
       fontSize: '16px',
-      color: '#1e3a5f',
+      color: '#14532d',
       marginBottom: '8px',
       lineHeight: '1.5'
     },
@@ -305,7 +305,7 @@ export default function AdminPage() {
     statNumber: {
       fontSize: '36px',
       fontWeight: '600',
-      color: '#1e3a5f'
+      color: '#14532d'
     },
     statLabel: {
       fontSize: '14px',
@@ -317,16 +317,16 @@ export default function AdminPage() {
       fontSize: '13px',
       fontWeight: '500',
       backgroundColor: '#f8fafc',
-      color: '#1e3a5f',
-      border: '1px solid #cbd5e1',
+      color: '#14532d',
+      border: '1px solid #bbf7d0',
       borderRadius: '6px',
       cursor: 'pointer',
       marginBottom: '16px'
     },
     secondaryButtonActive: {
-      backgroundColor: '#3b82c4',
+      backgroundColor: '#22c55e',
       color: 'white',
-      border: '1px solid #3b82c4'
+      border: '1px solid #22c55e'
     },
     table: {
       width: '100%',
@@ -422,7 +422,7 @@ export default function AdminPage() {
     modalTitle: {
       fontSize: '18px',
       fontWeight: '600',
-      color: '#1e3a5f',
+      color: '#14532d',
       marginBottom: '12px'
     },
     modalText: {
@@ -450,7 +450,7 @@ export default function AdminPage() {
       padding: '10px 20px',
       fontSize: '14px',
       fontWeight: '500',
-      backgroundColor: '#3b82c4',
+      backgroundColor: '#22c55e',
       color: 'white',
       border: 'none',
       borderRadius: '8px',
@@ -478,7 +478,7 @@ export default function AdminPage() {
       backgroundColor: '#e2e8f0'
     },
     progressDotActive: {
-      backgroundColor: '#3b82c4'
+      backgroundColor: '#22c55e'
     },
     progressDotCurrent: {
       backgroundColor: '#fbbf24'
@@ -504,7 +504,7 @@ export default function AdminPage() {
       <div style={styles.container}>
         <div style={styles.loginContainer}>
           <div style={{ marginBottom: '24px' }}>
-            <Snowflake size={28} />
+            <Flower size={28} />
           </div>
           <div style={styles.loginCard}>
             <h1 style={styles.loginTitle}>Admin Login</h1>
@@ -559,7 +559,7 @@ export default function AdminPage() {
       <div style={styles.inner}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <Snowflake />
+            <Flower />
             <h1 style={styles.title}>Admin Dashboard</h1>
           </div>
           <button onClick={handleLogout} style={styles.secondaryButton}>
@@ -604,7 +604,7 @@ export default function AdminPage() {
 
             {currentQuestion === 26 ? (
               <div>
-                <p style={{ fontSize: '18px', color: '#1e3a5f', fontWeight: '600' }}>
+                <p style={{ fontSize: '18px', color: '#14532d', fontWeight: '600' }}>
                   Game Complete!
                 </p>
                 <p style={{ fontSize: '14px', color: '#64748b', marginTop: '8px' }}>
@@ -653,7 +653,7 @@ export default function AdminPage() {
         {gameActive && currentQuestion >= 1 && currentQuestion <= 25 && (
           <div style={styles.card}>
             <h2 style={styles.sectionTitle}>Live Submissions - Q{currentQuestion}</h2>
-            <p style={{ fontSize: '16px', color: '#1e3a5f', marginBottom: '16px' }}>
+            <p style={{ fontSize: '16px', color: '#14532d', marginBottom: '16px' }}>
               <strong>{playersAnswered.length}</strong> of <strong>{submissions.length}</strong> players answered
             </p>
 
